@@ -1,10 +1,12 @@
+/* eslint-disable no-unused-vars */
 const models = require('./models');
-const User = models.User;
-const Subject = models.Subject;
-const Question = models.Question;
-const Explanation = models.Explanation;
-const Testcase = models.Testcase;
-const Solver = models.Solver;
+
+const { User } = models;
+const { Subject } = models;
+const { Question } = models;
+const { Explanation } = models;
+const { Testcase } = models;
+const { Solver } = models;
 
 // Create a user
 // User.create({
@@ -23,7 +25,7 @@ const Solver = models.Solver;
 //     console.log(err);
 // })
 
-//Create a subject
+// Create a subject
 // Subject.create({
 //     subject_name:"cpp",
 //     createdAt: new Date(),
