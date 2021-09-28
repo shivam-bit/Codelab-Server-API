@@ -1,12 +1,7 @@
 const { Router } = require('express');
-const controller = require('../controllers/index');
+const authenticationRoutes = require('./auth');
 
 const router = Router();
-
-router.get('/', (req, res) => {
-    res.json('server is up');
-});
-
-router.post('/create', controller.createUser);
+router.use('/auth', authenticationRoutes);
 
 module.exports = router;
