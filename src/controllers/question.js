@@ -1,4 +1,4 @@
-const { Question } = require('../../models');
+const { Question, Subject } = require('../../models');
 const ErrorHandlerClass = require('../utils/errorHandlerClass');
 
 const createQuestion = async (req, res, next) => {
@@ -31,6 +31,57 @@ const createQuestion = async (req, res, next) => {
     }
 };
 
+const viewAllQuestionsOfSubject = async (req, res, next) => {
+    try {
+        const subjectExist = await Subject.findOne({
+            where: {
+                id: req.params.subjectId,
+            },
+        });
+        if (!subjectExist) {
+            return next(new ErrorHandlerClass('Invalid Subject ID', 422));
+        }
+        const questionsList = await Question.findAll({
+            where: {
+                SubjectId: req.params.subjectId,
+            },
+        });
+        return res.status(200).json({
+            success: true,
+            data: questionsList,
+        });
+    } catch (error) {
+        return next(error);
+    }
+};
+
+const updateQuestion = async (req, res, next) => {
+    try {
+        const questionExist = await Question.findOne({
+            where: {
+                id: req.params.questionId,
+            },
+        });
+        if (!questionExist) {
+            return next(new ErrorHandlerClass('Invalid Question ID', 422));
+        }
+        req.body.updatedAt = new Date();
+        await Question.update(req.body, {
+            where: {
+                id: req.params.questionId,
+            },
+        });
+        return res.status(200).json({
+            success: true,
+            message: 'Question content updated',
+        });
+    } catch (error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     createQuestion,
+    viewAllQuestionsOfSubject,
+    updateQuestion,
 };

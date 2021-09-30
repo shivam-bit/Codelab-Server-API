@@ -6,10 +6,10 @@ const authorizedRoles = require('../middlewares/authorizedRoles');
 const router = Router();
 
 router.route('/create').post(isAuthenticatedUser, authorizedRoles('Instructor'), controller.createQuestion);
-// router.route('/delete/:id').delete(isAuthenticatedUser, authorizedRoles('Instructor'), controller.deleteSubject);
-// router.route('/update/:id').patch(isAuthenticatedUser, authorizedRoles('Instructor'), controller.updateSubject);
-// router.route('/update').post(controller.loginUser);
-// router.route('/delete').post(isAuthenticatedUser, authorizedRoles('Instructor'), controller.logoutUser);
+router.route('/:subjectId/all').get(isAuthenticatedUser, controller.viewAllQuestionsOfSubject);
+router
+    .route('/update/:questionId')
+    .patch(isAuthenticatedUser, authorizedRoles('Instructor'), controller.updateQuestion);
 router.route('').get(isAuthenticatedUser, controller.viewAllSubjects);
 
 module.exports = router;

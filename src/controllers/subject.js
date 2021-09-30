@@ -60,7 +60,7 @@ const updateSubject = async (req, res, next) => {
             return next(new ErrorHandlerClass('Inavlid Subject ID', 401));
         }
         if (subjectObj.UserId !== req.user.id) {
-            return next(new ErrorHandlerClass('You are not the owner of this sibject', 401));
+            return next(new ErrorHandlerClass('You are not the owner of this subject', 401));
         }
         await Subject.update(
             {

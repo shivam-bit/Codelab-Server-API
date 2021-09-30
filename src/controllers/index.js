@@ -1,6 +1,6 @@
 const { createUser, loginUser, logoutUser } = require('./auth');
 const { createSubject, viewAllSubjects, deleteSubject, updateSubject } = require('./subject');
-const { createQuestion } = require('./question');
+const { createQuestion, viewAllQuestionsOfSubject, updateQuestion } = require('./question');
 
 const controllers = {
     createUser,
@@ -11,6 +11,8 @@ const controllers = {
     deleteSubject,
     updateSubject,
     createQuestion,
+    viewAllQuestionsOfSubject,
+    updateQuestion,
 };
 
 module.exports = controllers;
