@@ -10,6 +10,8 @@ router.route('/:subjectId/all').get(isAuthenticatedUser, controller.viewAllQuest
 router
     .route('/update/:questionId')
     .patch(isAuthenticatedUser, authorizedRoles('Instructor'), controller.updateQuestion);
-router.route('').get(isAuthenticatedUser, controller.viewAllSubjects);
+router
+    .route('/delete/:questionId')
+    .delete(isAuthenticatedUser, authorizedRoles('Instructor'), controller.deleteQuestion);
 
 module.exports = router;

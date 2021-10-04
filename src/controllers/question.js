@@ -80,8 +80,28 @@ const updateQuestion = async (req, res, next) => {
     }
 };
 
+const deleteQuestion = async (req, res, next) => {
+    try {
+        const questionDeleted = await Question.destroy({
+            where: {
+                id: req.params.questionId,
+            },
+        });
+        if (!questionDeleted) {
+            return next(new ErrorHandlerClass('Invalid Question ID', 422));
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'Question Deleted Successfully',
+        });
+    } catch (error) {
+        return next(error);
+    }
+};
+
 module.exports = {
     createQuestion,
     viewAllQuestionsOfSubject,
     updateQuestion,
+    deleteQuestion,
 };
