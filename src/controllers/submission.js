@@ -1,5 +1,34 @@
-const { Testcase, Question } = require('../../models');
+const { Solver, Question } = require('../../models');
 const ErrorHandlerClass = require('../utils/errorHandlerClass');
+
+const createSubmission = async (req, res, next) => {
+    try {
+        if (!req.params.questionId) {
+            return next(new ErrorHandlerClass('QuestionId is required', 422));
+        }
+        const questionExist = await Question.findOne({
+            where: {
+                id: req.params.questionId,
+            },
+        });
+        if (!questionExist) {
+            return next(new ErrorHandlerClass('Invalid Question ID', 422));
+        }
+        req.body.createdAt = new Date();
+        req.body.updatedAt = new Date();
+        req.body.QuestionId = req.params.questionId;
+        req.body.UserId = req.user.id;
+        console.log(req.body)
+        const newSubmission = await Solver.create(req.body);
+        return res.status(200).json({
+            success: true,
+            message: 'Submission Successful',
+            data: newSubmission,
+        });
+    } catch (error) {
+        return next(error);
+    }
+};
 
 const createTestcase = async (req, res, next) => {
     try {
@@ -90,8 +119,5 @@ const viewAllTestcases = async (req, res, next) => {
     }
 };
 module.exports = {
-    createTestcase,
-    updateTestcase,
-    deleteTestcase,
-    viewAllTestcases,
+    createSubmission,
 };

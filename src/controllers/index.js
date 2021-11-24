@@ -7,6 +7,9 @@ const {
     deleteExplanation,
     viewAllExplanationsOfQuestion,
 } = require('./explanation');
+const { createTestcase, updateTestcase, deleteTestcase, viewAllTestcases } = require('./testcase');
+const { createSubmission } = require('./submission');
+const { judge } = require('./judge');
 
 const controllers = {
     createUser,
@@ -24,6 +27,12 @@ const controllers = {
     updateExplanation,
     deleteExplanation,
     viewAllExplanationsOfQuestion,
+    createTestcase,
+    updateTestcase,
+    deleteTestcase,
+    viewAllTestcases,
+    createSubmission,
+    judge,
 };
 
 module.exports = controllers;
